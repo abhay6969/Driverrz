@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Link } from "react-router";
 
 export const Navbar = () => {
 	const [servicesActive, setServicesActive] = useState("");
+	const timeoutRef = useRef<number|null>(null);
 	const links = [
 		{ name: "Home", path: "/" },
 		{ name: "About", path: "/about" },
@@ -28,12 +29,25 @@ export const Navbar = () => {
   {
     type: "city",
     items: [
-      { name: "Kanpur", path: "#" },
-      { name: "Lucknow", path: "#" },
-      { name: "Unnao", path: "#" },
+      { name: "Kanpur", path: "/city?city=Kanpur" },
+      { name: "Lucknow", path: "/city?city=Lucknow" },
+      { name: "Unnao", path: "/city?city=Unnao" },
     ],
   },
 ];
+
+const handleMouseEnter = (name:string) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current); // Cancel hide if user re-enters quickly
+    }
+    setServicesActive(name);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setServicesActive(""); // Hide after short delay
+    }, 200); // 200ms delay gives enough time for user to move
+  };
 
 	return (
 		<div className=" bg-gray-500 text-white p-4 flex justify-center gap-6 items-center relative">
@@ -46,8 +60,8 @@ export const Navbar = () => {
 						<div
 							key={link.name}
 							className="relative"
-							onMouseEnter={() => setServicesActive(link.name)}
-							onMouseLeave={() => setServicesActive("")}
+							onMouseEnter={() => handleMouseEnter(link.name)}
+							onMouseLeave={handleMouseLeave}
 						>
 							<Link
 								to="#"
