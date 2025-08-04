@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Link } from "react-router";
+import axiosInstance from '../../../utils/axiosInstance';
 
 export const Navbar = () => {
 	const [servicesActive, setServicesActive] = useState("");
@@ -34,6 +35,12 @@ export const Navbar = () => {
     ],
   },
 ];
+
+const getUserProfile = async () => {
+  const res = await axiosInstance.get('/user/profile');
+  return res.data;
+};
+
 
 	return (
 		<div className=" bg-gray-500 text-white p-4 flex justify-center gap-6 items-center relative">
@@ -83,6 +90,9 @@ export const Navbar = () => {
 					);
 				}
 			})}
+			<Link to={"/profile"}>
+				Profile
+			</Link>
 		</div>
 	);
 };
