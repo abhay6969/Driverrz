@@ -11,7 +11,7 @@ export const DriverSignIn = () => {
 
     try {
       const res = await axiosInstance.post(
-        `${import.meta.env.VITE_BASE_URL}/driver/signIn`,
+        `${import.meta.env.VITE_BASE_URL}/signInDriver`,
         { data },
         { withCredentials: true }
       );

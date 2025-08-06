@@ -5,6 +5,7 @@ import { SignUp } from "../components/auth/signUp"
 import { City } from "../pages/City"
 import { DriverSignIn } from "../components/auth/driverSignIn"
 import { DriverSignUp } from "../components/auth/driverSignUp"
+import { DriverHome } from "../pages/DriverHome"
 
 const AppRouter = () => {
     return (
@@ -15,6 +16,8 @@ const AppRouter = () => {
             <Route path="/city" element = {<City/>} />
             <Route path="/driverSignIn" element={<DriverSignIn />} />
             <Route path="/driverSignUp" element={<DriverSignUp />} />
+            
+            <Route path="/driverdashboard" element ={<DriverHome/>} />
 
         </Routes>
     )
